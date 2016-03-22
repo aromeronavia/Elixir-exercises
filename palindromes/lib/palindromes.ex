@@ -20,4 +20,24 @@ defmodule Palindromes do
   defp chars_equals?(string, s, e) do
     String.at(string, s) == String.at(string, e)
   end
+
+  @doc "Returns if a string can be a palindrome rearranging it"
+  def can_be_a_palindrome?(string) when is_binary(string) do
+    letters = build_letters_map(string)
+  end
+
+  def build_letters_map(string) do
+    letters = Map.new
+    String.graphemes(string)
+      |>  Enum.each(fn char ->
+            case Map.has_key?(letters, char) do
+              true ->
+                letters = Map.put(letters, char, letters[char] + 1)
+              false ->
+                letters = Map.put(letters, char, 1)
+            end
+          end)
+  end
 end
+
+Palindromes.can_be_a_palindrome?("Jaja saludos")
