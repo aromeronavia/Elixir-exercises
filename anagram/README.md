@@ -1,20 +1,8 @@
 # Anagram
 
-**TODO: Add description**
+Evaluate if two words are anagrams!
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add anagram to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:anagram, "~> 0.0.1"}]
-        end
-
-  2. Ensure anagram is started before your application:
-
-        def application do
-          [applications: [:anagram]]
-        end
+```
+An anagram is a type of word play, the result of rearranging the letters of a word or phrase to produce a new word or phrase, using all the original letters exactly once; for example, the word anagram can be rearranged into nag-a-ram.
+```
 
