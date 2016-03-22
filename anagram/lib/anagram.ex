@@ -8,5 +8,3 @@ defmodule Anagram do
   	|> Enum.sort
   end
 end
-
-IO.puts Anagram.anagrams?("jaja", "jaja")

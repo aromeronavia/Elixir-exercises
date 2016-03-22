@@ -1,9 +1,9 @@
 defmodule Palindromes do
   @doc "Returns true if string is a palindrome"
   def palindrome?(a) when is_binary(a) do
-    IO.puts palindrome([{:string, a},
-                        {:start, 0},
-                        {:end, String.length(a) - 1}])
+    palindrome([{:string, a},
+                {:start, 0},
+                {:end, String.length(a) - 1}])
   end
 
   defp palindrome(args) do
@@ -21,5 +21,3 @@ defmodule Palindromes do
     String.at(string, s) == String.at(string, e)
   end
 end
-
-Palindromes.palindrome?("aabaa")
