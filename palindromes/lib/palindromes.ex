@@ -22,22 +22,43 @@ defmodule Palindromes do
   end
 
   @doc "Returns if a string can be a palindrome rearranging it"
-  def can_be_a_palindrome?(string) when is_binary(string) do
+  def build_palindrome_if_possible(string) when is_binary(string) do
     letters = build_letters_map(string)
+    case more_than_one_odd(letters) do
+      true -> "Not possible"
+      false ->
+        palindrome =
+          letters
+          |> Enum.reduce("", fn ({key, value}, acc) ->
+            cond do
+              rem(value, 2) == 0 -> acc <> String.duplicate(key, div(value, 2))
+              true -> acc
+            end
+          end)
+        {key, _} = letters |> Enum.find(fn ({_, value}) -> rem(value, 2) == 1 end)
+        invertedPalindrome = palindrome |> String.reverse
+        palindrome <> key <> invertedPalindrome
+    end
   end
 
   def build_letters_map(string) do
-    letters = Map.new
     String.graphemes(string)
-      |>  Enum.each(fn char ->
-            case Map.has_key?(letters, char) do
+      |>  Enum.reduce(Map.new, fn (char, acc) ->
+            case Map.has_key?(acc, char) do
               true ->
-                letters = Map.put(letters, char, letters[char] + 1)
+                Map.put(acc, char, acc[char] + 1)
               false ->
-                letters = Map.put(letters, char, 1)
+                Map.put(acc, char, 1)
             end
           end)
   end
-end
 
-Palindromes.can_be_a_palindrome?("Jaja saludos")
+  def more_than_one_odd(map) do
+    map |> Enum.reduce(0, fn({_, value}, acc) ->
+      case rem(value, 2) do
+        1 -> acc + 1
+        _ -> acc
+      end
+    end) > 1
+  end
+end
